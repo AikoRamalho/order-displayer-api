@@ -30,7 +30,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.permit(:password)
+    params.permit(:password, :created_by)
   end
 
   def set_order

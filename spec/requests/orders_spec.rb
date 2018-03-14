@@ -45,7 +45,7 @@ RSpec.describe 'Orders API', type: :request do
 
     describe 'POST /orders' do
       # valid payload
-      let(:valid_attributes) { {password: 12345 } }
+      let(:valid_attributes) { {password: 12345, created_by: '1' } }
   
       context 'when the request is valid' do
         before { post '/orders', params: valid_attributes }
