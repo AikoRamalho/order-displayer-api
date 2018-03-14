@@ -7,8 +7,8 @@ RSpec.describe User, type: :model do
 
   #Validation test
   #ensure that name, email and password are present before save
-  it {should valide_presence_of(:name)}
-  it {should valide_presence_of(:email)}
-  it {should valide_presence_of(:password_digest)}
+  it {should validate_presence_of(:name)}
+  it {should validate_presence_of(:email)}
+  it {should validate_presence_of(:password_digest)}
 
 end
