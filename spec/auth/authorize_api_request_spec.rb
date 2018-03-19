@@ -39,7 +39,7 @@ RSpec.describe AuthorizeApiRequest do
 
         it 'raises a invalid token error' do
           expect { invalid_request_obj.call }
-            .to raise_error(ExceptionHandler::InvalidToken, /Invalid Token/)
+            .to raise_error(ExceptionHandler::InvalidToken, /Invalid token/)
         end
       end
 
