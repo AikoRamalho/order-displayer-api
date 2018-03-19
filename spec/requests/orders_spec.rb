@@ -1,11 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe 'Orders API', type: :request do
-  let!(:orders) {create_list(:order, 10)}
+  let(:user) {create(:user)}
+  let!(:orders) {create_list(:order, 10, created_by: user.id)}
   let(:order_id) {orders.first.id}
+  let(:headers) {valid_headers}
 
   describe 'GET /orders' do
-    before {get '/orders'}
+    before {get '/orders', params: {}, headers: headers}
 
     it 'returns orders' do
       expect(json).not_to be_empty
@@ -18,7 +20,7 @@ RSpec.describe 'Orders API', type: :request do
   end
 
   describe 'GET /orders/:id' do
-    before {get "/orders/#{order_id}"}
+    before {get "/orders/#{order_id}", params: {}, headers: headers}
 
     context 'when the records exists' do
       it 'returns the order' do
@@ -43,59 +45,62 @@ RSpec.describe 'Orders API', type: :request do
     end
   end
 
-    describe 'POST /orders' do
-      # valid payload
-      let(:valid_attributes) { {password: 12345, created_by: '1' } }
+  describe 'POST /orders' do
+    # valid payload
+    let(:valid_attributes) do
+      {password: 12345, created_by: user.id.to_s }.to_json
+    end
   
-      context 'when the request is valid' do
-        before { post '/orders', params: valid_attributes }
+    context 'when the request is valid' do
+      before { post '/orders', params: valid_attributes, headers: headers }
   
-        it 'creates an order' do
-          expect(json['password']).to eq(12345)
-        end
-  
-        it 'returns status code 201' do
-          expect(response).to have_http_status(201)
-        end
+      it 'creates an order' do
+        expect(json['password']).to eq(12345)
       end
   
-      context 'when the request is invalid' do
-        before { post '/orders', params: { password: nil } }
-  
-        it 'returns status code 422' do
-          expect(response).to have_http_status(422)
-        end
-  
-        it 'returns a validation failure message' do
-          expect(response.body)
-            .to match(/Validation failed: Password can't be blank/)
-        end
+      it 'returns status code 201' do
+        expect(response).to have_http_status(201)
       end
     end
+  
+    context 'when the request is invalid' do
+      let(:invalid_attributes) { { password: nil }.to_json }
+      before { post '/orders', params: invalid_attributes, headers: headers }
+  
+      it 'returns status code 422' do
+        expect(response).to have_http_status(422)
+      end
+  
+      it 'returns a validation failure message' do
+        expect(json['message'])
+          .to match(/Validation failed: Password can't be blank/)
+      end
+    end
+  end
   
     # Test suite for PUT /orders/:id
-    describe 'PUT /orders/:id' do
-      let(:valid_attributes) { { password: 12345 } }
+  describe 'PUT /orders/:id' do
+    let(:valid_attributes) { { password: 12345 }.to_json }
   
-      context 'when the record exists' do
-        before { put "/orders/#{order_id}", params: valid_attributes }
+    context 'when the record exists' do
+      before { put "/orders/#{order_id}", params: valid_attributes, headers: headers }
   
-        it 'updates the record' do
-          expect(response.body).to be_empty
-        end
-  
-        it 'returns status code 204' do
-          expect(response).to have_http_status(204)
-        end
+      it 'updates the record' do
+        expect(response.body).to be_empty
       end
-    end
-  
-    # Test suite for DELETE /orders/:id
-    describe 'DELETE /orders/:id' do
-      before { delete "/orders/#{order_id}" }
   
       it 'returns status code 204' do
         expect(response).to have_http_status(204)
       end
     end
   end
+  
+    # Test suite for DELETE /orders/:id
+  describe 'DELETE /orders/:id' do
+    before { delete "/orders/#{order_id}", params: {}, headers: headers}
+  
+    it 'returns status code 204' do
+      expect(response).to have_http_status(204)
+    end
+  end
+end

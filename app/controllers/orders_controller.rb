@@ -3,13 +3,13 @@ class OrdersController < ApplicationController
 
   #GET /Orders
   def index
-    @orders = Order.all
+    @orders = current_user.orders
     json_response(@orders)
   end
 
   #POST /Orders
   def create
-    @order = Order.create!(order_params)
+    @order = current_user.orders.create!(order_params)
     json_response(@order, :created)
   end
 
@@ -30,7 +30,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.permit(:password, :created_by)
+    params.permit(:password)
   end
 
   def set_order
