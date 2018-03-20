@@ -8,8 +8,8 @@ Clone this repo to start working.
 
 ### Prerequisites
 
-You should run this Api in ruby 2.5.0 version, and rails 5.1.5.
-To see your your ruby/rails version, run:
+You should run this API in ruby 2.5.0 version, and rails on 5.1.5.
+To see your ruby/rails version, run:
 
 ```
 rails -v
@@ -24,7 +24,7 @@ bundle install
 ```
 Once you install the gems, you can run:
 ```
-rails -s
+rails server
 ```
 And everything should be working fine.
 
