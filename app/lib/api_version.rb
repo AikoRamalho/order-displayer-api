@@ -1,5 +1,5 @@
 class ApiVersion
-  attr_header :version, :default
+  attr_reader :version, :default
 
   def initialize(version, default=false)
     @version = version
@@ -18,4 +18,4 @@ class ApiVersion
   end
 end
 
-
+ 
