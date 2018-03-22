@@ -79,4 +79,4 @@ I didn't use any framework for versioning, instead, I added a route constraint t
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Aiko Ramalho**
