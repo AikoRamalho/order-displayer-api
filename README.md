@@ -22,7 +22,12 @@ To install dependecies you should, after clone this repo, run:
 ```
 bundle install
 ```
-Once you install the gems, you can run:
+After that run:
+```
+rails db:migrate
+```
+To create database migrations,
+Once you install the gems and created database's migrations, you can run:
 ```
 rails server
 ```
