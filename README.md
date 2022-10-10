@@ -1,3 +1,6 @@
+# Disclaimer:
+English: I've made this when I was 16 years old lol, at the time I was at a very early stage of my career and it was one of my first projects, thus it's not a project I'd actually have in my portfolio, but one I'd like to keep in order to remember how much I've learned in the past years
+
 # Order Displayer Api
 The order-displayer-api project was created in order to (ba dum ts) display restaurant's orders.
 This is a Rest-API project with Rails.
